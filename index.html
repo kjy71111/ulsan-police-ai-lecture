@@ -243,7 +243,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);font-si
   .toc li a{grid-template-columns:auto;padding:6px 10px;border-left:0;border-bottom:2px solid transparent;white-space:nowrap;font-size:13px}
   .toc li a .n{display:none}
   .toc li a.active{border-bottom-color:var(--seal);background:none}
-  .g2,.g3,.blocks,.rules,.books,.rubric,.links{grid-template-columns:1fr}
+  .g2,.g3,.rules,.books,.rubric,.links{grid-template-columns:1fr}
+  .blocks{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .profile{grid-template-columns:1fr}
   .profile img{max-width:220px}
@@ -253,6 +254,83 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);font-si
   details.tech .body{padding-left:18px}
   .lab-head{grid-template-columns:1fr}
   .doc-rows dt{letter-spacing:.1em}
+}
+
+/* motion */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--seal);z-index:60;transition:width .12s linear}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.rv.in{opacity:1;transform:none}
+.card,.rule,.book,.stat,.blk,.links a,.steps li,.rubric div{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.card:hover,.rule:hover,.book:hover,.stat:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.links a:hover{border-color:var(--line-strong);transform:translateX(3px)}
+.steps li:hover{border-color:var(--line-strong)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes stamp{0%{transform:rotate(-8deg) scale(1.9);opacity:0}65%{transform:rotate(-8deg) scale(.94);opacity:1}100%{transform:rotate(-8deg) scale(1);opacity:.9}}
+@keyframes pop{50%{transform:scale(1.07)}}
+@keyframes fadeSlide{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.cover .doc-head{animation:rise .55s ease both}
+.cover .doc-rows{animation:rise .55s ease .12s both}
+.cover h1{animation:rise .55s ease .22s both}
+.cover .sub,.cover .quick{animation:rise .55s ease .32s both}
+.cover .seal-mark{animation:stamp .7s cubic-bezier(.2,.9,.3,1.25) .6s both}
+.stats .stat{animation:rise .5s ease both}
+.stats .stat:nth-child(2){animation-delay:.08s}.stats .stat:nth-child(3){animation-delay:.16s}.stats .stat:nth-child(4){animation-delay:.24s}
+.cover .callout{animation:rise .5s ease .4s both}
+.blkpanel.swap>*{animation:fadeSlide .35s ease both}
+.blkpanel.swap>*:nth-child(2){animation-delay:.05s}.blkpanel.swap>*:nth-child(3){animation-delay:.1s}.blkpanel.swap>*:nth-child(4){animation-delay:.15s}.blkpanel.swap>*:nth-child(5){animation-delay:.2s}
+details.tech[open] .body{animation:rise .35s ease both}
+.tabpanel.on{animation:rise .3s ease both}
+.btn.done{animation:pop .3s ease}
+.tt .c{transition:padding-left .2s ease,border-color .2s ease}
+.tt .row:hover .c{padding-left:22px;border-left-color:var(--seal)}
+.toc li a{transition:background .15s,border-color .15s,color .15s}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}.cover *,.stats .stat,.blkpanel.swap>*,details.tech[open] .body,.tabpanel.on{animation:none!important}}
+
+@media (max-width:600px){
+  body{font-size:15px}
+  .shell{padding:0 12px}
+  .cover{padding:16px 0 12px}
+  .doc-head{padding:20px 16px}
+  .doc-head::before{inset:6px}
+  .doc-meta{flex-direction:column;gap:2px;margin-bottom:16px}
+  .doc-rows{grid-template-columns:1fr;gap:2px;font-size:14.5px}
+  .doc-rows dt{letter-spacing:.1em;font-size:12.5px;color:var(--muted)}
+  .doc-rows dd{margin-bottom:8px}
+  .cover h1{font-size:26px;margin:18px 0 8px}
+  .cover .sub{font-size:15.5px}
+  .quick{flex-direction:column;gap:8px}
+  .quick .btn{justify-content:center;min-height:44px}
+  .stats{gap:8px}
+  .stat{padding:12px}
+  .stat .v{font-size:15px}
+  section.sec{padding:44px 0 8px}
+  .eyebrow{flex-wrap:wrap;gap:8px}
+  .sec h2{font-size:22px}
+  .lede{font-size:15.5px;margin-bottom:20px}
+  .card{padding:16px}
+  .card h3{font-size:17px}
+  .tool .kind{position:static;display:inline-block;margin-bottom:6px}
+  .book{grid-template-columns:84px 1fr;gap:12px;padding:12px}
+  .profile .name{font-size:22px}
+  .pbox pre{font-size:13.5px;padding:14px;line-height:1.7}
+  .pbox .phead{flex-wrap:wrap}
+  .pbox .phead .title small{display:block;margin:2px 0 0}
+  .blocks{grid-template-columns:1fr 1fr;gap:8px}
+  .blk{padding:12px}
+  .blk .t{font-size:14px}
+  .blkpanel{padding:16px}
+  details.tech summary{grid-template-columns:30px 1fr auto;gap:10px;padding:12px 14px;font-size:15px}
+  details.tech .body{padding:0 14px 14px}
+  .tt{grid-template-columns:58px 1fr}
+  .tt .c{padding-left:12px}
+  .tabs{flex-wrap:wrap}
+  .tabs button{padding:8px 12px}
+  .steps li{padding:12px}
+  .btn.sm{min-height:36px}
+  .rule{padding:16px}
+  .qrwrap{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .links .doclink{grid-template-columns:1fr auto}
+  footer{flex-direction:column;gap:4px}
 }
 </style>
 </head>
@@ -301,7 +379,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);font-si
   <div class="stats">
     <div class="stat"><div class="k">일시</div><div class="v">2026. 9. 15.(화)</div></div>
     <div class="stat"><div class="k">대상</div><div class="v">수사전문 경찰관 15명 내외</div></div>
-    <div class="stat"><div class="k">시간</div><div class="v">1차 09:00~12:00 · 2차 14:00~17:00</div></div>
+    <div class="stat"><div class="k">시간</div><div class="v">1차 09:00~12:00 · 2차 14:00~17:00 (동일 내용)</div></div>
     <div class="stat"><div class="k">준비물</div><div class="v">노트북 · AI 계정 1개 이상</div></div>
   </div>
   <div class="callout amber" style="margin-top:22px">
@@ -365,7 +443,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);font-si
     <div class="card"><h3>할루시네이션 <span class="tag">Hallucination</span></h3><p style="font-size:14.5px">AI가 존재하지 않는 판례 번호, 법조문, 통계를 사실처럼 만들어내는 현상입니다. 수사 문서에서는 치명적입니다. <b>AI가 제시한 판례와 조문은 반드시 원문으로 대조</b>합니다.</p></div>
   </div>
 
-  <h3 style="font-size:20px;margin:36px 0 14px">시간표 (150분)</h3>
+  <h3 style="font-size:20px;margin:36px 0 14px">시간표 (150분 · 1차와 2차 동일 진행)</h3>
   <div class="tt">
     <div class="row"><div class="t">00:00</div><div class="c"><b>01 강사 소개</b><span>10분 · 강의 방향과 준비물 확인</span></div></div>
     <div class="row"><div class="t">00:10</div><div class="c"><b>02 개요 · 목표 · 핵심 개념</b><span>15분</span></div></div>
@@ -1080,6 +1158,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);font-si
 
 </main>
 </div>
+<div class="progress" id="progress" aria-hidden="true"></div>
 <div class="toast" id="toast">복사되었습니다</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -1114,6 +1193,7 @@ function renderBlock(k){
   const b=BLOCKS[k];const p=document.getElementById('blkpanel');
   p.innerHTML='<div class="eyebrow" style="margin-bottom:6px"><span class="num">BLOCK '+(k+1)+'</span>수사보고서 프롬프트에서의 모습</div><h3>'+b.t+'</h3><p class="q">'+b.q+'</p><p style="font-size:14.5px;margin-bottom:12px">'+b.d+'</p><div class="sample">'+b.s.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</div>';
   document.querySelectorAll('.blk').forEach(x=>x.classList.toggle('on',+x.dataset.k===k));
+  p.classList.remove('swap');void p.offsetWidth;p.classList.add('swap');
 }
 document.querySelectorAll('.blk').forEach(x=>x.addEventListener('click',()=>renderBlock(+x.dataset.k)));
 renderBlock(0);
@@ -1127,8 +1207,25 @@ document.querySelectorAll('.steps').forEach(list=>{
 });
 // active nav
 const links=[...document.querySelectorAll('.toc a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
-function setActive(){let idx=0;const y=window.scrollY+140;secs.forEach((s,i)=>{if(s&&s.offsetTop<=y)idx=i;});links.forEach((a,i)=>a.classList.toggle('active',i===idx));}
-window.addEventListener('scroll',setActive,{passive:true});setActive();
+let curIdx=-1;
+function setActive(){let idx=0;const y=window.scrollY+140;secs.forEach((s,i)=>{if(s&&s.offsetTop<=y)idx=i;});
+  if(idx!==curIdx){curIdx=idx;links.forEach((a,i)=>a.classList.toggle('active',i===idx));
+    const ol=links[idx].closest('ol');if(ol&&window.innerWidth<=1000){const a=links[idx];ol.scrollTo({left:a.offsetLeft-ol.clientWidth/2+a.offsetWidth/2,behavior:'smooth'});}}
+  const pb=document.getElementById('progress');if(pb){const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;pb.style.width=(max>0?Math.min(100,window.scrollY/max*100):0)+'%';}
+}
+window.addEventListener('scroll',setActive,{passive:true});window.addEventListener('resize',setActive);setActive();
+// reveal on scroll (elements already on screen stay visible; without JS everything is visible)
+(function(){
+  if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const sel='.sec .eyebrow,.sec h2,.sec h3,.sec .lede,.sec .card,.sec .tablewrap,.sec .pbox,.sec details.tech,.sec .blk,.sec .blkpanel,.sec .callout,.sec .steps li,.sec .rubric div,.sec .rule,.sec .links > a,.sec .links .doclink,.sec .qrwrap,.sec .tt .t,.sec .tt .c,.sec .profile,.sec .tabs,.sec .tabpanel';
+  const els=[...document.querySelectorAll(sel)];
+  const vh=window.innerHeight;const groups=new Map();
+  els.forEach(e=>{const r=e.getBoundingClientRect();if(r.top<vh*0.9)return;e.classList.add('rv');
+    const par=e.parentElement;const n=(groups.get(par)||0);groups.set(par,n+1);e.style.transitionDelay=Math.min(n,7)*55+'ms';});
+  const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{rootMargin:'0px 0px -6% 0px',threshold:0.05});
+  els.forEach(e=>{if(e.classList.contains('rv'))io.observe(e);});
+  setTimeout(()=>els.forEach(e=>{if(e.classList.contains('rv')&&e.getBoundingClientRect().top<vh)e.classList.add('in');}),300);
+})();
 // QR
 try{const url=location.href.split('#')[0];document.getElementById('pageurl').textContent=url;if(window.QRCode){new QRCode(document.getElementById('qr'),{text:url,width:120,height:120,correctLevel:QRCode.CorrectLevel.M});}}catch(e){}
 </script>
